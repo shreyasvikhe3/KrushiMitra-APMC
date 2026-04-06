@@ -1,0 +1,114 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #16a34a;
+}
+
+.App-link {
+  color: #16a34a;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.App-link:hover {
+  transform: scale(1.05);
+}
+
+.App-link img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.App-link:hover img {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient Backgrounds */
+.gradient-green {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive Text */
+@media (max-width: 768px) {
+  .App-header {
+    font-size: calc(8px + 2vmin);
+    padding: 1rem;
+  }
+}
+
+/* Custom Transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus Styles */
+.focus-ring:focus {
+  outline: 2px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/* Success/Error States */
+.success-state {
+  border-color: #16a34a;
+  background-color: #f0fdf4;
+}
+
+.error-state {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.warning-state {
+  border-color: #f59e0b;
+  background-color: #fffbeb;
+}
