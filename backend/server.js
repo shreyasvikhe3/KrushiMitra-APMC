@@ -73,7 +73,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const { ensureSuperAdmin } = require('./utils/ensureSuperAdmin');
 
 // Load environment variables
 dotenv.config();
@@ -191,16 +190,6 @@ const startServer = async () => {
   try {
     await connectDB();
     console.log('MongoDB connected successfully');
-
-    const bootstrapResult = await ensureSuperAdmin();
-
-    if (bootstrapResult.created) {
-      console.log('Default superadmin created successfully');
-      console.log(`Email: ${bootstrapResult.user.email}`);
-      console.log('Password: SuperAdmin@123');
-    } else {
-      console.log('Admin or superadmin already exists, skipping default seed');
-    }
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
