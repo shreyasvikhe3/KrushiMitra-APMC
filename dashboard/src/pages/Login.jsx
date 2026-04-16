@@ -1,39 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LogIn, ShieldCheck } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from '../components/ThemeToggle';
 import GoogleAuthButton from '../components/GoogleAuthButton';
-
-const initialBootstrapForm = {
-  username: '',
-  email: '',
-  password: '',
-  fullName: '',
-  phone: '',
-  address: '',
-  role: 'superadmin'
-};
 
 const Login = () => {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showBootstrap, setShowBootstrap] = useState(false);
   const [canBootstrapAdmin, setCanBootstrapAdmin] = useState(false);
-  const [bootstrapForm, setBootstrapForm] = useState(initialBootstrapForm);
 
-  const { login, googleLogin, bootstrapAdmin, getBootstrapStatus } = useAuth();
+  const { login, googleLogin, getBootstrapStatus } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadBootstrapStatus = async () => {
       try {
         const response = await getBootstrapStatus();
-        const canBootstrap = Boolean(response.canBootstrapAdmin);
-        setCanBootstrapAdmin(canBootstrap);
-        setShowBootstrap(canBootstrap);
+        setCanBootstrapAdmin(Boolean(response.canBootstrapAdmin));
       } catch (err) {
         setCanBootstrapAdmin(false);
       }
@@ -52,28 +38,6 @@ const Login = () => {
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Login failed. Please check your credentials.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleBootstrapChange = (field, value) => {
-    setBootstrapForm((current) => ({
-      ...current,
-      [field]: value
-    }));
-  };
-
-  const handleBootstrapSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      await bootstrapAdmin(bootstrapForm);
-      navigate('/');
-    } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Unable to create the initial admin account.');
     } finally {
       setLoading(false);
     }
@@ -141,13 +105,11 @@ const Login = () => {
         <div className="w-full rounded-[32px] border border-white/70 bg-white/88 p-8 shadow-[0_28px_80px_rgba(15,23,42,0.12)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/82 dark:shadow-[0_28px_80px_rgba(2,6,23,0.5)]">
           <div className="text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-emerald-700 shadow-lg shadow-emerald-700/20">
-              {showBootstrap ? <ShieldCheck className="text-white" size={30} /> : <LogIn className="text-white" size={30} />}
+              <LogIn className="text-white" size={30} />
             </div>
             <h1 className="mt-4 font-display text-3xl font-bold text-slate-900 dark:text-white">KrushiMitra</h1>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              {showBootstrap
-                ? 'Create your first admin or superadmin account to unlock the dashboard'
-                : 'Sign in with your admin or superadmin account'}
+              Sign in with your admin or superadmin account
             </p>
           </div>
 
@@ -157,88 +119,44 @@ const Login = () => {
             </div>
           )}
 
-          {showBootstrap ? (
-            <form onSubmit={handleBootstrapSubmit} className="mt-6 space-y-4">
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-200">
-                No admin account exists in the database yet. Use this one-time form to create your own admin or superadmin login.
-              </div>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Email or Username</label>
+              <input type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} required placeholder="Enter email or username" className={inputClasses} />
+            </div>
 
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Role</label>
-                <select value={bootstrapForm.role} onChange={(e) => handleBootstrapChange('role', e.target.value)} className={inputClasses}>
-                  <option value="superadmin">Superadmin</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Password</label>
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Enter your password" className={inputClasses} />
+            </div>
 
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Full Name</label>
-                <input type="text" value={bootstrapForm.fullName} onChange={(e) => handleBootstrapChange('fullName', e.target.value)} required className={inputClasses} />
-              </div>
+            <button type="submit" disabled={loading} className="w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-700 py-3 font-semibold text-white shadow-md shadow-emerald-700/20 transition hover:translate-y-[-1px] disabled:opacity-50">
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
 
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Username</label>
-                <input type="text" value={bootstrapForm.username} onChange={(e) => handleBootstrapChange('username', e.target.value)} required className={inputClasses} />
-              </div>
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                Or continue with
+              </span>
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+            </div>
 
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Email</label>
-                <input type="email" value={bootstrapForm.email} onChange={(e) => handleBootstrapChange('email', e.target.value)} required className={inputClasses} />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Phone</label>
-                <input type="text" value={bootstrapForm.phone} onChange={(e) => handleBootstrapChange('phone', e.target.value)} required className={inputClasses} />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Address</label>
-                <input type="text" value={bootstrapForm.address} onChange={(e) => handleBootstrapChange('address', e.target.value)} className={inputClasses} />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Password</label>
-                <input type="password" value={bootstrapForm.password} onChange={(e) => handleBootstrapChange('password', e.target.value)} required minLength={6} className={inputClasses} />
-              </div>
-
-              <button type="submit" disabled={loading} className="w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-700 py-3 font-semibold text-white shadow-md shadow-emerald-700/20 transition hover:translate-y-[-1px] disabled:opacity-50">
-                {loading ? 'Creating account...' : 'Create Admin Account'}
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Email or Username</label>
-                <input type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} required placeholder="Enter email or username" className={inputClasses} />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Enter your password" className={inputClasses} />
-              </div>
-
-              <button type="submit" disabled={loading} className="w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-700 py-3 font-semibold text-white shadow-md shadow-emerald-700/20 transition hover:translate-y-[-1px] disabled:opacity-50">
-                {loading ? 'Signing in...' : 'Sign In'}
-              </button>
-
-              <div className="flex items-center gap-3">
-                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-                <span className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
-                  Or continue with
-                </span>
-                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-              </div>
-
-              <GoogleAuthButton onCredentialResponse={handleGoogleLogin} disabled={loading} />
-              <p className="text-center text-xs leading-6 text-slate-500 dark:text-slate-400">
-                Only existing admin or superadmin accounts can access the dashboard with Google.
-              </p>
-            </form>
-          )}
+            <GoogleAuthButton onCredentialResponse={handleGoogleLogin} disabled={loading} />
+            <p className="text-center text-xs leading-6 text-slate-500 dark:text-slate-400">
+              Only existing admin or superadmin accounts can access the dashboard with Google.
+            </p>
+          </form>
 
           <div className="mt-6 text-center text-xs text-slate-600 dark:text-slate-400">
             {canBootstrapAdmin ? (
-              <p>Create your first admin or superadmin account here before signing in.</p>
+              <p>
+                No admin account yet?{' '}
+                <Link to="/signup" className="font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-300 dark:hover:text-emerald-200">
+                  Create one here
+                </Link>
+                .
+              </p>
             ) : (
               <p>Use an existing admin or superadmin account to continue.</p>
             )}

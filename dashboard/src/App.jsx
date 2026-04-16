@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext';
 
 // Pages
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/Users';
 import Crops from './pages/Crops';
@@ -21,19 +22,18 @@ function AppRoutes() {
   const { user } = useAuth();
 
   return (
-    
     <Routes>
       <Route
-        path="/login"
-        element={user ? <Navigate to="/" replace /> : <Login />}
+        path="/"
+        element={user ? <Dashboard /> : <Login />}
       />
       <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
+        path="/login"
+        element={<Navigate to="/" replace />}
+      />
+      <Route
+        path="/signup"
+        element={user ? <Navigate to="/" replace /> : <Signup />}
       />
       <Route
         path="/users"
