@@ -19,6 +19,7 @@ const Signup = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
+  const [statusError, setStatusError] = useState('');
   const [canBootstrapAdmin, setCanBootstrapAdmin] = useState(false);
 
   const { bootstrapAdmin, getBootstrapStatus } = useAuth();
@@ -29,8 +30,10 @@ const Signup = () => {
       try {
         const response = await getBootstrapStatus();
         setCanBootstrapAdmin(Boolean(response.canBootstrapAdmin));
+        setStatusError('');
       } catch (err) {
-        setError('Unable to check admin sign-up availability right now.');
+        setCanBootstrapAdmin(false);
+        setStatusError('Unable to check admin sign-up availability right now. Make sure the backend is running and reachable.');
       } finally {
         setCheckingStatus(false);
       }
@@ -105,6 +108,18 @@ const Signup = () => {
           {checkingStatus ? (
             <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
               Checking sign-up availability...
+            </div>
+          ) : statusError ? (
+            <div className="mt-6 space-y-4">
+              <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-200">
+                {statusError}
+              </div>
+              <Link
+                to="/"
+                className="block w-full rounded-2xl border border-slate-200 px-4 py-3 text-center font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900/70"
+              >
+                Back to Login
+              </Link>
             </div>
           ) : canBootstrapAdmin ? (
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">

@@ -111,6 +111,14 @@ const Login = () => {
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
               Sign in with your admin or superadmin account
             </p>
+            <div className="mt-4">
+              <Link
+                to="/signup"
+                className="inline-flex items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 px-5 py-2 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200 dark:hover:bg-emerald-950/50"
+              >
+                Go to Sign Up
+              </Link>
+            </div>
           </div>
 
           {error && (
@@ -148,17 +156,23 @@ const Login = () => {
             </p>
           </form>
 
-          <div className="mt-6 text-center text-xs text-slate-600 dark:text-slate-400">
+          <div className="mt-6">
             {canBootstrapAdmin ? (
-              <p>
-                No admin account yet?{' '}
-                <Link to="/signup" className="font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-300 dark:hover:text-emerald-200">
-                  Create one here
+              <div className="space-y-3">
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-center text-sm text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-200">
+                  No admin account exists yet. Create your first admin or superadmin account.
+                </div>
+                <Link
+                  to="/signup"
+                  className="block w-full rounded-2xl border border-emerald-300 bg-white px-4 py-3 text-center font-semibold text-emerald-700 transition hover:bg-emerald-50 dark:border-emerald-800 dark:bg-slate-900/70 dark:text-emerald-300 dark:hover:bg-emerald-950/20"
+                >
+                  Create Admin Account
                 </Link>
-                .
-              </p>
+              </div>
             ) : (
-              <p>Use an existing admin or superadmin account to continue.</p>
+              <p className="text-center text-xs text-slate-600 dark:text-slate-400">
+                Use an existing admin or superadmin account to continue.
+              </p>
             )}
           </div>
         </div>
