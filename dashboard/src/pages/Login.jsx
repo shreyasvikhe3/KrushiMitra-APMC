@@ -132,7 +132,7 @@ const Login = () => {
             <div className="rounded-[26px] border border-white/70 bg-white/75 p-5 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/70">
               <p className="text-sm font-semibold text-sky-700 dark:text-sky-300">First-time setup</p>
               <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                Bootstrap the initial admin account only when the database is empty.
+                Create the first admin or superadmin yourself when the dashboard has no admin accounts yet.
               </p>
             </div>
           </div>
@@ -146,7 +146,7 @@ const Login = () => {
             <h1 className="mt-4 font-display text-3xl font-bold text-slate-900 dark:text-white">KrushiMitra</h1>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
               {showBootstrap
-                ? 'Create the first admin account to unlock the dashboard'
+                ? 'Create your first admin or superadmin account to unlock the dashboard'
                 : 'Sign in with your admin or superadmin account'}
             </p>
           </div>
@@ -160,7 +160,7 @@ const Login = () => {
           {showBootstrap ? (
             <form onSubmit={handleBootstrapSubmit} className="mt-6 space-y-4">
               <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-200">
-                No admin account exists in the database yet. This form can only be used once.
+                No admin account exists in the database yet. Use this one-time form to create your own admin or superadmin login.
               </div>
 
               <div>
@@ -202,7 +202,7 @@ const Login = () => {
               </div>
 
               <button type="submit" disabled={loading} className="w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-700 py-3 font-semibold text-white shadow-md shadow-emerald-700/20 transition hover:translate-y-[-1px] disabled:opacity-50">
-                {loading ? 'Creating account...' : 'Create Initial Admin'}
+                {loading ? 'Creating account...' : 'Create Admin Account'}
               </button>
             </form>
           ) : (
@@ -238,7 +238,7 @@ const Login = () => {
 
           <div className="mt-6 text-center text-xs text-slate-600 dark:text-slate-400">
             {canBootstrapAdmin ? (
-              <p>The first admin account must be created before login is possible.</p>
+              <p>Create your first admin or superadmin account here before signing in.</p>
             ) : (
               <p>Use an existing admin or superadmin account to continue.</p>
             )}
