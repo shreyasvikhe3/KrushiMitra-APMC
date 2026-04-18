@@ -57,7 +57,11 @@ const Register = () => {
 
     if (result.success) {
       toast.success(result.data.message || t('auth.registerSuccess'));
-      navigateByRole(result.data.role);
+      if (result.data.isApproved) {
+        navigateByRole(result.data.role);
+      } else {
+        navigate('/approval-pending', { state: { message: result.data.message } });
+      }
     } else {
       toast.error(result.error);
     }
@@ -93,8 +97,12 @@ const Register = () => {
     });
 
     if (result.success) {
-      toast.success('Google account connected successfully');
-      navigateByRole(result.data.role);
+      toast.success(result.data.message || 'Google account connected successfully');
+      if (result.data.isApproved) {
+        navigateByRole(result.data.role);
+      } else {
+        navigate('/approval-pending', { state: { message: result.data.message } });
+      }
     } else {
       toast.error(result.error);
     }

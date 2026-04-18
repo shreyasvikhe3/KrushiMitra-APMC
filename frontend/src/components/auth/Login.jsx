@@ -65,7 +65,7 @@ const Login = () => {
         navigateByRole(result.data.role);
       } else {
         toast.success(result.data?.message || 'Google account created successfully');
-        navigate('/login');
+        navigate('/approval-pending', { state: { message: result.data?.message } });
       }
     } else {
       toast.error(result.error);

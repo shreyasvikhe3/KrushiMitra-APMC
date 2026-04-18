@@ -22,6 +22,12 @@ const protect = async (req, res, next) => {
         return res.status(401).json({ message: 'User account is deactivated' });
       }
 
+      if (!req.user.isApproved) {
+        return res.status(403).json({
+          message: 'Your request is sent to the officer. Contact APMC for approval.'
+        });
+      }
+
       next();
     } catch (error) {
       console.error(error);

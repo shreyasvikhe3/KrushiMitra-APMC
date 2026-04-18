@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
+import ApprovalPending from './components/auth/ApprovalPending';
 
 import ShetkariDashboard from './components/shetkari/ShetkariDashboard';
 import AddCrop from './components/shetkari/AddCrop';
@@ -169,6 +170,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/approval-pending" element={<ApprovalPending />} />
 
               <Route
                 path="/shetkari"

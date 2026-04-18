@@ -17,6 +17,10 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     return <Navigate to="/login" replace />;
   }
 
+  if (user && !user.isApproved) {
+    return <Navigate to="/approval-pending" replace />;
+  }
+
   if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role)) {
     return <Navigate to="/" replace />;
   }

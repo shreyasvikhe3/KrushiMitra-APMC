@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema(
     isApproved: {
       type: Boolean,
       default: function() {
-        return ['karmachari', 'admin', 'superadmin'].includes(this.role) ? true : false;
+        return ['admin', 'superadmin'].includes(this.role) ? true : false;
       }
     },
     isActive: {

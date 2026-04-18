@@ -2,6 +2,8 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import api from '../utils/api';
 
 const AuthContext = createContext(null);
+const AUTH_TOKEN_KEY = 'token';
+const AUTH_USER_KEY = 'user';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -9,20 +11,29 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is logged in
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
+    const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
+    const userData = sessionStorage.getItem(AUTH_USER_KEY);
     
     if (token && userData) {
       setUser(JSON.parse(userData));
     }
+
+    // Clear old persistent data from previous deployments.
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+
     setLoading(false);
   }, []);
 
   const persistAuth = (payload) => {
     const { token, ...userData } = payload;
 
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(userData));
+    if (!token || !userData?.isApproved) {
+      return userData;
+    }
+
+    sessionStorage.setItem(AUTH_TOKEN_KEY, token);
+    sessionStorage.setItem(AUTH_USER_KEY, JSON.stringify(userData));
     setUser(userData);
 
     return userData;
@@ -57,8 +68,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem(AUTH_TOKEN_KEY);
+    sessionStorage.removeItem(AUTH_USER_KEY);
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
     setUser(null);
   };
 

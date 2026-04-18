@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '../utils/api';
 
 const AuthContext = createContext();
+const ADMIN_TOKEN_KEY = 'adminToken';
+const ADMIN_USER_KEY = 'adminUser';
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -32,20 +34,25 @@ export const AuthProvider = ({ children }) => {
       throw new Error('Access denied. Admin privileges required.');
     }
 
-    localStorage.setItem('adminToken', payload.token);
-    localStorage.setItem('adminUser', JSON.stringify(userData));
+    sessionStorage.setItem(ADMIN_TOKEN_KEY, payload.token);
+    sessionStorage.setItem(ADMIN_USER_KEY, JSON.stringify(userData));
     setUser(userData);
 
     return userData;
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    const savedUser = localStorage.getItem('adminUser');
+    const token = sessionStorage.getItem(ADMIN_TOKEN_KEY);
+    const savedUser = sessionStorage.getItem(ADMIN_USER_KEY);
     
     if (token && savedUser) {
       setUser(JSON.parse(savedUser));
     }
+
+    // Clear old persistent data from previous deployments.
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
+    localStorage.removeItem(ADMIN_USER_KEY);
+
     setLoading(false);
   }, []);
 
@@ -81,8 +88,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    sessionStorage.removeItem(ADMIN_USER_KEY);
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
+    localStorage.removeItem(ADMIN_USER_KEY);
     setUser(null);
   };
 

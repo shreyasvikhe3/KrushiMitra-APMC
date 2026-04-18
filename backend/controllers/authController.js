@@ -27,6 +27,26 @@ const formatAuthResponse = (user, message) => {
   };
 };
 
+const formatPendingApprovalResponse = (user, message) => {
+  const userPayload = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+    fullName: user.fullName,
+    phone: user.phone,
+    address: user.address,
+    isApproved: user.isApproved,
+    isActive: user.isActive
+  };
+
+  return {
+    ...userPayload,
+    user: userPayload,
+    ...(message ? { message } : {})
+  };
+};
+
 const hasAdminAccount = async () => {
   const adminCount = await User.countDocuments({
     role: { $in: ['admin', 'superadmin'] }
@@ -116,12 +136,14 @@ const registerUser = async (req, res) => {
       address
     });
 
-    const registrationMessage =
-      user.role === 'karmachari'
-        ? 'Registration successful'
-        : 'Registration successful. Your account is pending approval.';
+    if (!user.isApproved) {
+      return res.status(201).json(formatPendingApprovalResponse(
+        user,
+        'Your request is sent to the officer. Contact APMC for approval.'
+      ));
+    }
 
-    res.status(201).json(formatAuthResponse(user, registrationMessage));
+    res.status(201).json(formatAuthResponse(user, 'Registration successful'));
 
   } catch (error) {
     console.error(error);
@@ -171,7 +193,9 @@ const loginUser = async (req, res) => {
     // 🔥 IMPORTANT: Approval check
     if (!user.isApproved) {
       return res.status(403).json({
-        message: 'Your account is pending approval'
+        message: user.role === 'karmachari'
+          ? 'Your officer registration request is sent to admin/superadmin for approval.'
+          : 'Your request is sent to the officer. Contact APMC for approval.'
       });
     }
 
@@ -297,15 +321,19 @@ const googleAuth = async (req, res) => {
     }
 
     if (createdNewUser && !user.isApproved) {
-      return res.status(201).json(formatAuthResponse(
+      return res.status(201).json(formatPendingApprovalResponse(
         user,
-        'Registration successful. Your account is pending approval.'
+        user.role === 'karmachari'
+          ? 'Your officer registration request is sent to admin/superadmin for approval.'
+          : 'Your request is sent to the officer. Contact APMC for approval.'
       ));
     }
 
     if (!user.isApproved) {
       return res.status(403).json({
-        message: 'Your account is pending approval'
+        message: user.role === 'karmachari'
+          ? 'Your officer registration request is sent to admin/superadmin for approval.'
+          : 'Your request is sent to the officer. Contact APMC for approval.'
       });
     }
 

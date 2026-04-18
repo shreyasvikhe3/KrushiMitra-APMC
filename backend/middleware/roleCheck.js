@@ -4,9 +4,9 @@ const checkRole = (...roles) => {
       return res.status(401).json({ message: 'Not authenticated' });
     }
 
-    if (!req.user.isApproved && req.user.role !== 'karmachari') {
+    if (!req.user.isApproved) {
       return res.status(403).json({ 
-        message: 'Your account is pending approval. Please contact APMC office.' 
+        message: 'Your request is sent to the officer. Contact APMC for approval.' 
       });
     }
 
