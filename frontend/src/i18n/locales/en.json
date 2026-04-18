@@ -48,6 +48,17 @@
     "dontHaveAccount": "Don't have an account?",
     "selectRole": "Select Role"
   },
+  "approvalPending": {
+    "icon": "OK",
+    "badge": "Request Received",
+    "title": "Registration Request Sent",
+    "marathiLine": "Your registration request has been received.",
+    "defaultMessage": "Your request is sent to the officer. Contact APMC for approval.",
+    "officerMessage": "Your officer registration request is sent to admin/superadmin for approval.",
+    "nextStepsTitle": "What happens next",
+    "nextStepsText": "Please keep your phone and email active. After approval, you can login and access your dashboard.",
+    "backToLogin": "Back to Login"
+  },
   "roles": {
     "shetkari": "Farmer",
     "vyapari": "Trader",

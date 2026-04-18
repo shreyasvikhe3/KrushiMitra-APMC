@@ -31,11 +31,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/80 text-slate-900 shadow-[0_10px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/75 dark:text-slate-100 dark:shadow-[0_12px_45px_rgba(2,6,23,0.45)]">
+    <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/80 text-slate-900 shadow-[0_10px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/75 dark:text-slate-100 dark:shadow-[0_12px_45px_rgba(2,6,23,0.45)] reveal-up">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-[4.5rem] flex-col justify-center gap-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-0">
           <Link to={getDashboardLink()} className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-sm font-bold text-white shadow-lg shadow-emerald-700/25">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-sm font-bold text-white shadow-lg shadow-emerald-700/25 float-soft">
               KM
             </div>
             <div className="min-w-0">
@@ -60,7 +60,7 @@ const Navbar = () => {
                 <Button
                   onClick={handleLogout}
                   variant="outline"
-                  className="rounded-xl border-slate-300 bg-white text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                  className="rounded-xl border-slate-300 bg-white text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 btn-sheen"
                   size="sm"
                 >
                   {t('common.logout')}
@@ -71,14 +71,14 @@ const Navbar = () => {
                 <Button
                   onClick={() => navigate('/login')}
                   variant="outline"
-                  className="rounded-xl border-slate-300 bg-white text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                  className="rounded-xl border-slate-300 bg-white text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 btn-sheen"
                   size="sm"
                 >
                   {t('auth.login')}
                 </Button>
                 <Button
                   onClick={() => navigate('/register')}
-                  className="rounded-xl bg-emerald-700 text-white shadow-md shadow-emerald-700/20 hover:bg-emerald-800"
+                  className="rounded-xl bg-emerald-700 text-white shadow-md shadow-emerald-700/20 hover:bg-emerald-800 btn-sheen"
                   size="sm"
                 >
                   {t('auth.register')}

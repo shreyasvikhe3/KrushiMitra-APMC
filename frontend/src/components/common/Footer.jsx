@@ -30,16 +30,16 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="mt-auto border-t border-emerald-100 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(237,247,239,0.96))] text-slate-700 backdrop-blur dark:border-slate-800 dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.84),rgba(15,23,42,0.96))] dark:text-slate-300">
+    <footer className="mt-auto border-t border-emerald-100 bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(237,247,239,0.96))] text-slate-700 backdrop-blur dark:border-slate-800 dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.84),rgba(15,23,42,0.96))] dark:text-slate-300 reveal-up">
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div>
+          <div className="surface-lift rounded-2xl p-2">
             <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">{t('app.title')}</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{t('app.subtitle')}</p>
             <p className="mt-3 text-sm leading-6 text-slate-500 dark:text-slate-400">{t('footer.description')}</p>
           </div>
 
-          <div>
+          <div className="surface-lift rounded-2xl p-2">
             <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
               {quickLinks.map((link) => (
@@ -52,7 +52,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="surface-lift rounded-2xl p-2">
             <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">{t('footer.contactInfo')}</h4>
             <div className="text-sm leading-7 text-slate-600 dark:text-slate-300">
               <p>APMC Nandgaon</p>

@@ -43,7 +43,7 @@ const HomeMarketTicker = () => {
 
   if (loading) {
     return (
-      <div className="rounded-[28px] border border-emerald-100 bg-white/85 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800/70 dark:bg-slate-900/75 dark:shadow-[0_20px_55px_rgba(2,6,23,0.35)]">
+      <div className="rounded-[28px] border border-emerald-100 bg-white/85 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800/70 dark:bg-slate-900/75 dark:shadow-[0_20px_55px_rgba(2,6,23,0.35)] reveal-up">
         <p className="text-sm font-medium text-slate-600 dark:text-slate-300">{t('home.marketTicker.loading')}</p>
       </div>
     );
@@ -51,7 +51,7 @@ const HomeMarketTicker = () => {
 
   if (!prices.length) {
     return (
-      <div className="rounded-[28px] border border-emerald-100 bg-white/85 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800/70 dark:bg-slate-900/75 dark:shadow-[0_20px_55px_rgba(2,6,23,0.35)]">
+      <div className="rounded-[28px] border border-emerald-100 bg-white/85 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800/70 dark:bg-slate-900/75 dark:shadow-[0_20px_55px_rgba(2,6,23,0.35)] reveal-up">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm font-semibold text-slate-900 dark:text-white">{t('home.marketTicker.title')}</p>
           <p className="text-sm text-slate-500 dark:text-slate-400">{t('home.marketTicker.empty')}</p>
@@ -61,7 +61,7 @@ const HomeMarketTicker = () => {
   }
 
   return (
-    <div className="rounded-[28px] border border-emerald-100 bg-white/85 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/75 dark:shadow-[0_20px_55px_rgba(2,6,23,0.35)]">
+    <div className="rounded-[28px] border border-emerald-100 bg-white/85 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/75 dark:shadow-[0_20px_55px_rgba(2,6,23,0.35)] reveal-up">
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">
@@ -82,7 +82,7 @@ const HomeMarketTicker = () => {
           {loopedPrices.map((price, index) => (
             <div
               key={`${price.id}-${index}`}
-              className="min-w-[220px] rounded-2xl border border-white bg-white/95 px-4 py-3 shadow-sm sm:min-w-[250px] dark:border-slate-800 dark:bg-slate-950/90"
+              className="min-w-[220px] rounded-2xl border border-white bg-white/95 px-4 py-3 shadow-sm sm:min-w-[250px] dark:border-slate-800 dark:bg-slate-950/90 surface-lift"
             >
               <div className="flex items-start justify-between gap-3">
                 <div>

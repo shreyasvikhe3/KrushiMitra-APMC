@@ -65,7 +65,7 @@ const Login = () => {
         navigateByRole(result.data.role);
       } else {
         toast.success(result.data?.message || 'Google account created successfully');
-        navigate('/approval-pending', { state: { message: result.data?.message } });
+        navigate('/approval-pending', { state: { role: result.data?.role } });
       }
     } else {
       toast.error(result.error);
@@ -76,8 +76,8 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.22),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(251,191,36,0.18),_transparent_24%),linear-gradient(180deg,_#f8fff7_0%,_#eef7f1_46%,_#f8fafc_100%)] p-4 dark:bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.18),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(245,158,11,0.12),_transparent_20%),linear-gradient(180deg,_#020617_0%,_#0f172a_48%,_#111827_100%)]">
-      <div className="absolute left-[8%] top-24 h-48 w-48 rounded-full bg-emerald-200/50 blur-3xl dark:bg-emerald-500/12" />
-      <div className="absolute bottom-10 right-[10%] h-56 w-56 rounded-full bg-amber-200/40 blur-3xl dark:bg-amber-500/10" />
+      <div className="absolute left-[8%] top-24 h-48 w-48 rounded-full bg-emerald-200/50 blur-3xl dark:bg-emerald-500/12 float-soft" />
+      <div className="absolute bottom-10 right-[10%] h-56 w-56 rounded-full bg-amber-200/40 blur-3xl dark:bg-amber-500/10 float-soft" />
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.35),transparent_40%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_35%)]" />
 
       <div className="relative mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center justify-center">
@@ -111,7 +111,7 @@ const Login = () => {
             </div>
           </div>
 
-          <Card className="w-full border-white/70 bg-white/88 shadow-[0_28px_70px_rgba(15,23,42,0.12)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/80 dark:shadow-[0_28px_80px_rgba(2,6,23,0.5)]">
+          <Card className="w-full border-white/70 bg-white/88 shadow-[0_28px_70px_rgba(15,23,42,0.12)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/80 dark:shadow-[0_28px_80px_rgba(2,6,23,0.5)] reveal-up surface-lift">
             <CardHeader className="space-y-2">
               <CardTitle className="text-center font-display text-3xl font-bold text-slate-900 dark:text-white">
                 {t('app.title')}
@@ -158,7 +158,7 @@ const Login = () => {
                   </Link>
                 </div>
 
-                <Button type="submit" className="w-full rounded-xl bg-emerald-700 hover:bg-emerald-800" disabled={loading}>
+                <Button type="submit" className="w-full rounded-xl bg-emerald-700 hover:bg-emerald-800 btn-sheen" disabled={loading}>
                   {loading ? t('common.loading') : t('auth.loginButton')}
                 </Button>
               </form>
